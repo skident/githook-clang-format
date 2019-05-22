@@ -20,7 +20,9 @@ case "${1}" in
     echo "Runs clang-format on source files"
     ;;
   * )
-    for file in `git diff-index --cached --name-only HEAD` ; do
+
+    FILES=`git diff --cached --name-only --diff-filter=ACMR | grep -E "\.(c|cpp|h|hpp)$"`
+    for file in FILES; do
       format_file "${file}"
     done
     ;;
